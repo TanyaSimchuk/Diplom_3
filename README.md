@@ -1,0 +1,1 @@
+Добавлены автотесты для проверки UI сайта https://stellarburgers.nomoreparties.site/
