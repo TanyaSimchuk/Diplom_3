@@ -13,6 +13,7 @@ public class BurgerConstructor {
     private final By nameBun = By.xpath(".//h2['Булки']");
     private final By nameSauce = By.xpath(".//h2['Соусы']");
     private final By nameFilling = By.xpath(".//h2['Начинки']");
+    private final By typeIngredients = By.xpath(".//*['display: flex;']");
 
     public BurgerConstructor(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -44,5 +45,11 @@ public class BurgerConstructor {
         WebElement element = webDriver.findElement(nameFilling);
         ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", element);
         return webDriver.findElements(nameFilling).size() > 0;
+    }
+    @Step("Конструктор ингредиентов виден")
+    public boolean blockOfTypesIsVisible() {
+        WebElement element = webDriver.findElement(typeIngredients);
+        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", element);
+        return webDriver.findElements(typeIngredients).size() > 0;
     }
 }

@@ -14,7 +14,7 @@ import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
-public class GetIngredientNamesTests {
+public class GetBunNameTests {
     private WebDriver webDriver;
     private MainPage mainPage;
 
@@ -31,13 +31,8 @@ public class GetIngredientNamesTests {
     @Description("Проверка совпадения типов ингредиентов в вкладках конструктора и блоках ингредиентов")
     public void checkIngredientNames() {
         mainPage.open();
+        mainPage.burgerConstructor().blockOfTypesIsVisible();
         assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().bunNameIsVisible());
-        mainPage.userAuthorized().clickConstructor();
-        mainPage.burgerConstructor().clickSauceButton();
-        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().sauceNameIsVisible());
-        mainPage.userAuthorized().clickConstructor();
-        mainPage.burgerConstructor().clickFillingButton();
-        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().fillingNameIsVisible());
     }
 
     @After
