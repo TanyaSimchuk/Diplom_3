@@ -10,10 +10,7 @@ public class BurgerConstructor {
     private final WebDriver webDriver;
     private final By sauceType = By.xpath(".//div[2]/*['Соусы']");
     private final By fillingType = By.xpath(".//div[3]/*['Начинки']");
-    private final By nameBun = By.xpath(".//h2['Булки']");
-    private final By nameSauce = By.xpath(".//h2['Соусы']");
-    private final By nameFilling = By.xpath(".//h2['Начинки']");
-    private final By typeIngredients = By.xpath(".//*['display: flex;']");
+    private final By tabCurrentType = By.xpath(".//*['tab_tab_type_current__2BEPc']");
 
     public BurgerConstructor(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -28,28 +25,10 @@ public class BurgerConstructor {
         webDriver.findElement(fillingType).click();
         return this;
     }
-    @Step("Блок Булки виден")
-    public boolean bunNameIsVisible() {
-        WebElement element = webDriver.findElement(nameBun);
+    @Step("Показан флекс по выбранному типу ингредиента")
+    public boolean currentTypeFlex() {
+        WebElement element = webDriver.findElement(tabCurrentType);
         ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", element);
-        return webDriver.findElements(nameBun).size() > 0;
-    }
-    @Step("Блок Соусы виден")
-    public boolean sauceNameIsVisible() {
-        WebElement element = webDriver.findElement(nameSauce);
-        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", element);
-        return webDriver.findElements(nameSauce).size() > 0;
-    }
-    @Step("Блок Начинки виден")
-    public boolean fillingNameIsVisible() {
-        WebElement element = webDriver.findElement(nameFilling);
-        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", element);
-        return webDriver.findElements(nameFilling).size() > 0;
-    }
-    @Step("Конструктор ингредиентов виден")
-    public boolean blockOfTypesIsVisible() {
-        WebElement element = webDriver.findElement(typeIngredients);
-        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", element);
-        return webDriver.findElements(typeIngredients).size() > 0;
+        return webDriver.findElements(tabCurrentType).size() > 0;
     }
 }

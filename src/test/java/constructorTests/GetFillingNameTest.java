@@ -31,9 +31,8 @@ public class GetFillingNameTest {
     @Description("Проверка совпадения типов ингредиентов в вкладках конструктора и блоках ингредиентов")
     public void checkIngredientNames() {
         mainPage.open();
-        mainPage.burgerConstructor().blockOfTypesIsVisible();
         mainPage.burgerConstructor().clickFillingButton();
-        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().fillingNameIsVisible());
+        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().currentTypeFlex());
     }
 
     @After

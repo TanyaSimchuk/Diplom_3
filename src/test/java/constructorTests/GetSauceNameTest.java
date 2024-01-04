@@ -31,9 +31,8 @@ public class GetSauceNameTest {
     @Description("Проверка совпадения типов ингредиентов в вкладках конструктора и блоках ингредиентов")
     public void checkIngredientNames() {
         mainPage.open();
-        mainPage.burgerConstructor().blockOfTypesIsVisible();
         mainPage.burgerConstructor().clickSauceButton();
-        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().sauceNameIsVisible());
+        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().currentTypeFlex());
     }
 
     @After
