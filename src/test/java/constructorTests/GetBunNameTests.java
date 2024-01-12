@@ -27,11 +27,13 @@ public class GetBunNameTests {
         mainPage = new MainPage(webDriver);
     }
     @Test
-    @DisplayName("Check ingredient names matching")
-    @Description("Проверка совпадения типов ингредиентов в вкладках конструктора и блоках ингредиентов")
-    public void checkIngredientNames() {
-        mainPage.open();
-        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().currentTypeFlex());
+    @DisplayName("Check switching to buns tab")
+    @Description("Проверка переключения на вкладку Булки")
+    public void checkTabName() {
+        mainPage.open()
+                        .burgerConstructor().clickSauceButton();
+        mainPage.burgerConstructor().clickBunsButton();
+        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().checkTransitionToBuns());
     }
 
     @After

@@ -1,34 +1,49 @@
 package edu.praktikum.seleniumTestsClasses;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BurgerConstructor {
     private final WebDriver webDriver;
-    private final By sauceType = By.xpath(".//div[2]/*['Соусы']");
-    private final By fillingType = By.xpath(".//div[3]/*['Начинки']");
-    private final By tabCurrentType = By.xpath(".//*['tab_tab_type_current__2BEPc']");
-
-    public BurgerConstructor(WebDriver webDriver) {
+    private final By bunType = By.xpath(".//div[1]['tab_tab__1SPyG  pt-4 pr-10 pb-4 pl-10 noselect']");
+    private final By sauceType = By.xpath(".//div[2]['tab_tab__1SPyG  pt-4 pr-10 pb-4 pl-10 noselect']");
+    private final By fillingType = By.xpath(".//div[3]['tab_tab__1SPyG  pt-4 pr-10 pb-4 pl-10 noselect']");
+    public BurgerConstructor (WebDriver webDriver) {
         this.webDriver = webDriver;
     }
     @Step("Нажать на вкладку Соусы")
-    public BurgerConstructor clickSauceButton() {
+    public void clickSauceButton() {
         webDriver.findElement(sauceType).click();
-        return this;
     }
     @Step("Нажать на вкладку Начинки")
-    public BurgerConstructor clickFillingButton() {
+    public void clickFillingButton() {
         webDriver.findElement(fillingType).click();
-        return this;
     }
-    @Step("Показан флекс по выбранному типу ингредиента")
-    public boolean currentTypeFlex() {
-        WebElement element = webDriver.findElement(tabCurrentType);
-        ((JavascriptExecutor)webDriver).executeScript("arguments[0].scrollIntoView();", element);
-        return webDriver.findElements(tabCurrentType).size() > 0;
+    @Step("Нажать на вкладку Булки")
+    public void clickBunsButton() {
+        webDriver.findElement(bunType).click();
+    }
+    @Step("Проверка что переключились на вкладку Соусы")
+    public Boolean checkTransitionToSauce(){
+        WebElement sauceTab = webDriver.findElement(sauceType);
+        String activeFlex = sauceTab.getAttribute("class");
+        WebDriverWait wait = new WebDriverWait(webDriver, 10);
+        return wait.until(ExpectedConditions.attributeToBe(sauceType, "class", activeFlex));
+    }
+    @Step("Проверка что переключились на вкладку Булки")
+    public Boolean checkTransitionToBuns(){
+        WebElement bunsTab = webDriver.findElement(bunType);
+        String activeFlex = bunsTab.getAttribute("class");
+        WebDriverWait wait = new WebDriverWait(webDriver, 10);
+        return wait.until(ExpectedConditions.attributeToBe(bunType, "class", activeFlex));
+    }
+    @Step("Проверка что переключились на вкладку Начинки")
+    public Boolean checkTransitionToFillings(){
+        WebElement sauceTab = webDriver.findElement(fillingType);
+        String activeFlex = sauceTab.getAttribute("class");
+        WebDriverWait wait = new WebDriverWait(webDriver, 10);
+        return wait.until(ExpectedConditions.attributeToBe(fillingType, "class", activeFlex));
     }
 }

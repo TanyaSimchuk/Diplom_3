@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class GetFillingNameTest {
     private WebDriver webDriver;
@@ -27,12 +27,12 @@ public class GetFillingNameTest {
         mainPage = new MainPage(webDriver);
     }
     @Test
-    @DisplayName("Check ingredient names matching")
-    @Description("Проверка совпадения типов ингредиентов в вкладках конструктора и блоках ингредиентов")
-    public void checkIngredientNames() {
-        mainPage.open();
-        mainPage.burgerConstructor().clickFillingButton();
-        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().currentTypeFlex());
+    @DisplayName("Check switching to filling tab")
+    @Description("Проверка переключения на вкладку Начинки")
+    public void checkTabName() {
+        mainPage.open()
+                        .burgerConstructor().clickFillingButton();
+        assertTrue("Неправильный тип ингредиента в вкладке", mainPage.burgerConstructor().checkTransitionToFillings());
     }
 
     @After
