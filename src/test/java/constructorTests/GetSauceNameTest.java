@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
+
 import static org.junit.Assert.*;
 
 public class GetSauceNameTest {
@@ -30,9 +31,8 @@ public class GetSauceNameTest {
     @DisplayName("Check switching to sauce tab")
     @Description("Проверка переключения на вкладку Соусы")
     public void checkTabName() {
-        mainPage.open()
-                .burgerConstructor().clickSauceButton();
-        assertTrue("Неправильное название активной вкладки", mainPage.burgerConstructor().checkTransitionToSauce());
+        mainPage.open();
+        assertTrue("Неправильный тип ингредиента в вкладке", mainPage.burgerConstructor().checkTransitionToSauce());
     }
 
     @After

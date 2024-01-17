@@ -2,14 +2,16 @@ package edu.praktikum.seleniumTestsClasses;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.attributeContains;
 
 public class BurgerConstructor {
     private final WebDriver webDriver;
-    private final By bunType = By.xpath(".//div[1]['tab_tab__1SPyG  pt-4 pr-10 pb-4 pl-10 noselect']");
-    private final By sauceType = By.xpath(".//div[2]['tab_tab__1SPyG  pt-4 pr-10 pb-4 pl-10 noselect']");
-    private final By fillingType = By.xpath(".//div[3]['tab_tab__1SPyG  pt-4 pr-10 pb-4 pl-10 noselect']");
+    private final By bunType = By.xpath(".//section/*/div[1]['tab_tab__1SPyG']");
+    private final By sauceType = By.xpath(".//section/*/div[2]['tab_tab__1SPyG']");
+    private final By fillingType = By.xpath(".//section/*/div[3]['tab_tab__1SPyG']");
     public BurgerConstructor (WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -26,24 +28,30 @@ public class BurgerConstructor {
         webDriver.findElement(bunType).click();
     }
     @Step("Проверка что переключились на вкладку Соусы")
-    public Boolean checkTransitionToSauce(){
+    public boolean checkTransitionToSauce(){
         WebElement sauceTab = webDriver.findElement(sauceType);
-        String activeFlex = sauceTab.getAttribute("class");
+        clickSauceButton();
         WebDriverWait wait = new WebDriverWait(webDriver, 10);
-        return wait.until(ExpectedConditions.attributeToBe(sauceType, "class", activeFlex));
-    }
-    @Step("Проверка что переключились на вкладку Булки")
-    public Boolean checkTransitionToBuns(){
-        WebElement bunsTab = webDriver.findElement(bunType);
-        String activeFlex = bunsTab.getAttribute("class");
-        WebDriverWait wait = new WebDriverWait(webDriver, 10);
-        return wait.until(ExpectedConditions.attributeToBe(bunType, "class", activeFlex));
+        wait.until(attributeContains(sauceTab, "class", "current"));
+        return sauceTab.getAttribute("class").contains("current");
     }
     @Step("Проверка что переключились на вкладку Начинки")
-    public Boolean checkTransitionToFillings(){
-        WebElement sauceTab = webDriver.findElement(fillingType);
-        String activeFlex = sauceTab.getAttribute("class");
+    public boolean checkTransitionToFillings(){
+        WebElement fillingTab = webDriver.findElement(fillingType);
+        clickFillingButton();
         WebDriverWait wait = new WebDriverWait(webDriver, 10);
-        return wait.until(ExpectedConditions.attributeToBe(fillingType, "class", activeFlex));
+        wait.until(attributeContains(fillingTab, "class", "current"));
+        return fillingTab.getAttribute("class").contains("current");
+    }
+    @Step("Проверка что переключись на вкладку Соусы и обратно на вкладку Булки")
+    public boolean checkTransitionToBuns() {
+        WebElement bunsTab = webDriver.findElement(bunType);
+        attributeContains(bunsTab, "class", "current");
+        clickSauceButton();
+        WebDriverWait wait = new WebDriverWait(webDriver, 10);
+        wait.until(not(attributeContains(bunsTab, "class", "current")));
+        clickBunsButton();
+        wait.until(attributeContains(bunsTab, "class", "current"));
+        return bunsTab.getAttribute("class").contains("current");
     }
 }

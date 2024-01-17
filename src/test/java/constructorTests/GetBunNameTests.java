@@ -30,10 +30,8 @@ public class GetBunNameTests {
     @DisplayName("Check switching to buns tab")
     @Description("Проверка переключения на вкладку Булки")
     public void checkTabName() {
-        mainPage.open()
-                        .burgerConstructor().clickSauceButton();
-        mainPage.burgerConstructor().clickBunsButton();
-        assertTrue("Неправильное название типа ингредиента", mainPage.burgerConstructor().checkTransitionToBuns());
+        mainPage.open();
+        assertTrue("Неправильный тип ингредиента в вкладке", mainPage.burgerConstructor().checkTransitionToBuns());
     }
 
     @After

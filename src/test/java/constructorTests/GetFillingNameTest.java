@@ -30,8 +30,7 @@ public class GetFillingNameTest {
     @DisplayName("Check switching to filling tab")
     @Description("Проверка переключения на вкладку Начинки")
     public void checkTabName() {
-        mainPage.open()
-                        .burgerConstructor().clickFillingButton();
+        mainPage.open();
         assertTrue("Неправильный тип ингредиента в вкладке", mainPage.burgerConstructor().checkTransitionToFillings());
     }
 
